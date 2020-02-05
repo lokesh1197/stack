@@ -5,7 +5,7 @@ packages:
 
 docker:
   enable: false
-  repo: fpco/stack-build-small:lts-13.26
+  repo: fpco/stack-build-small:lts-14.22
 
 nix:
   # --nix on the command-line to enable.
