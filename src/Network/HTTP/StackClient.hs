@@ -53,7 +53,6 @@ module Network.HTTP.StackClient
 import           Data.Aeson (FromJSON)
 import qualified Data.ByteString as Strict
 import           Data.Conduit (ConduitM)
-import           Data.Void (Void)
 import           Network.HTTP.Client (Request, RequestBody(..), Response, parseRequest, getUri, path, checkResponse, parseUrlThrow)
 import           Network.HTTP.Simple (setRequestMethod, setRequestBody, setRequestHeader, addRequestHeader, HttpException(..), getResponseBody, getResponseStatusCode, getResponseHeaders)
 import           Network.HTTP.Types (hAccept, hContentLength, hContentMD5, methodPut)

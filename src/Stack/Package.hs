@@ -28,7 +28,6 @@ module Stack.Package
   ) where
 
 import           Data.List (find, isPrefixOf, unzip)
-import           Data.Maybe (maybe)
 import qualified Data.Map.Strict as M
 import qualified Data.Set as S
 import qualified Data.Text as T
@@ -45,7 +44,6 @@ import           Distribution.Simple.Glob (matchDirFileGlob)
 import           Distribution.System (OS (..), Arch, Platform (..))
 import qualified Distribution.Text as D
 import qualified Distribution.Types.CondTree as Cabal
-import           Distribution.Types.Dependency (depPkgName, depVerRange)
 import qualified Distribution.Types.ExeDependency as Cabal
 import           Distribution.Types.ForeignLib
 import qualified Distribution.Types.LegacyExeDependency as Cabal
@@ -55,7 +53,7 @@ import qualified Distribution.Types.UnqualComponentName as Cabal
 import qualified Distribution.Verbosity as D
 import           Distribution.Version (mkVersion, orLaterVersion, anyVersion)
 import qualified HiFileParser as Iface
-import           Path as FL
+import           Path as FL hiding (replaceExtension)
 import           Path.Extra
 import           Path.IO hiding (findFiles)
 import           Stack.Build.Installed

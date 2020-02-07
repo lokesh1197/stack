@@ -21,7 +21,7 @@ import           Distribution.Types.PackageName (mkPackageName)
 import           Distribution.Types.VersionRange (withinRange)
 import           Distribution.System        (Platform (..))
 import qualified Pantry.SHA256 as SHA256
-import           Path
+import           Path hiding (replaceExtension)
 import           Path.IO
 import qualified Stack.Build
 import           Stack.Build.Installed

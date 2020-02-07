@@ -38,7 +38,6 @@ import qualified    Data.ByteString as S
 import qualified    Data.ByteString.Lazy as LBS
 import qualified    Data.Conduit.Binary as CB
 import              Data.Conduit.Lazy (lazyConsume)
-import              Data.Conduit.Lift (evalStateC)
 import qualified    Data.Conduit.List as CL
 import              Data.Conduit.Process.Typed (createSource)
 import              Data.Conduit.Zlib          (ungzip)
@@ -57,13 +56,13 @@ import qualified    Distribution.System as Cabal
 import              Distribution.Text (simpleParse)
 import              Distribution.Types.PackageName (mkPackageName)
 import              Distribution.Version (mkVersion)
-import              Lens.Micro (set)
 import              Network.HTTP.StackClient (CheckHexDigest (..), DownloadRequest (..), HashCheck (..),
                                               drRetryPolicyDefault, getResponseBody, getResponseStatusCode,
                                               httpLbs, httpJSON, parseRequest, parseUrlThrow, setGithubHeaders,
                                               verifiedDownload, withResponse)
-import              Path
+import              Path hiding (fileExtension)
 import              Path.CheckInstall (warnInstallSearchPathIssues)
+import              Path.Extended (fileExtension)
 import              Path.Extra (toFilePathNoTrailingSep)
 import              Path.IO hiding (findExecutable, withSystemTempDir)
 import              Prelude (until)
@@ -858,9 +857,13 @@ buildGhcFromSource getSetupInfo' installed (CompilerRepository url) commitId fla
          bindistPath <- parseRelDir "_build/bindist"
          (_,files) <- listDir (cwd </> bindistPath)
          let
-           isBindist p = "ghc-" `isPrefixOf` (toFilePath (filename p))
-                         && fileExtension (filename p) == ".xz"
-           mbindist = filter isBindist files
+           isBindist p = do
+             extension <- fileExtension (filename p)
+
+             return $ "ghc-" `isPrefixOf` (toFilePath (filename p))
+                         && extension == ".xz"
+
+         mbindist <- filterM isBindist files
          case mbindist of
            [bindist] -> do
                let bindist' = T.pack (toFilePath bindist)

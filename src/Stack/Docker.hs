@@ -55,7 +55,6 @@ import           Stack.Types.Config
 import           Stack.Types.Docker
 import           System.Environment (getEnv,getEnvironment,getProgName,getArgs,getExecutablePath)
 import qualified System.FilePath as FP
-import           System.IO (stderr,stdin)
 import           System.IO.Error (isDoesNotExistError)
 import           System.IO.Unsafe (unsafePerformIO)
 import qualified System.PosixCompat.User as User
