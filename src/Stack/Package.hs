@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TupleSections #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -53,7 +54,11 @@ import qualified Distribution.Types.UnqualComponentName as Cabal
 import qualified Distribution.Verbosity as D
 import           Distribution.Version (mkVersion, orLaterVersion, anyVersion)
 import qualified HiFileParser as Iface
+#if MIN_VERSION_path(0,7,0)
 import           Path as FL hiding (replaceExtension)
+#else
+import           Path as FL
+#endif
 import           Path.Extra
 import           Path.IO hiding (findFiles)
 import           Stack.Build.Installed
