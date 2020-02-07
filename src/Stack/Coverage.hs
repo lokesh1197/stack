@@ -46,7 +46,7 @@ import           RIO.Process
 import           Trace.Hpc.Tix
 import           Web.Browser (openBrowser)
 
-data CoverageException = NonTestSuiteTarget PackageName deriving Typeable
+newtype CoverageException = NonTestSuiteTarget PackageName deriving Typeable
 
 instance Exception CoverageException
 instance Show CoverageException where
